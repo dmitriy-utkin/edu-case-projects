@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All registered flights in the system</title>
+</head>
+<body>
+<div class="all-flights">
+    <div th:text="#{welcome.message(${serverTime})}"></div>
+    <div th:text="#{welcome.message2(${#dates.format(serverTime2, 'hh:mm:ss')})}"></div>
+    <div th:text="${#strings.toUpperCase('test of Thymeleaf strings')}"></div>
+    <div th:text="#{first.freight(${freightsList[0]['freightNumber']},
+                                  ${freightsList[0]['flightTime']},
+                                  ${freightsList[0]['flightCost']})}"></div>
+    <h1>All flights in the system:</h1>
+    <div class="flight-item" th:each="flight : ${freightsList}">
+        <a th:text="${flight.freightNumber}"></a>
+        <a th:text="${flight.departureDate}"></a>
+        <a th:text="${flight.departureTime}"></a>
+        <a th:text="${flight.flightTime}"></a>
+        <a th:text="${flight.airportDeparture}"></a>
+        <a th:text="${flight.airportArrival}"></a>
+        <a th:text="${flight.flightCost}"></a>
+    </div>
+</div>
+
+</body>
+</html>

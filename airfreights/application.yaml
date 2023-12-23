@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+spring:
+#  profiles:
+#    active: prod
+  messages:
+    basename: lang.messages
+  datasource:
+    username: root
+    password: testTest
+    url: jdbc:postgresql://localhost:5432/air_freights
+    driver-class-name: org.postgresql.Driver
+  #    url: jdbc:mysql://localhost:3306/air_freights?useSSL=false&requireSSL=false&allowPublicKeyRetrieval=true
+#logging:
+#  level:
+#    root:
+#      info
+
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 1500
+#        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+parser-settings:
+  jsonFilePath: src/main/resources/airports.json
+  responseWithMessage: true
