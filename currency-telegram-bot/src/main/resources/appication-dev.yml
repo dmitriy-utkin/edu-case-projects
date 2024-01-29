@@ -1,0 +1,21 @@
+telegram:
+  bot:
+    #    не вписывайте данные, так как можете отправить в публичный репозиторий
+    #    используйте переменные среды для установки значений
+    username: @CryptocurrencyAnalyzer_bot
+    token: 6934013338:AAGE5SgRQ7-n4_tTFq36sSkss3XQsLdZie4
+    notify:
+      delay:
+        value: 10
+        unit: MINUTES
+
+binance:
+  api:
+    getPrice: https://api.binance.com/api/v3/avgPrice?symbol=BTCUSDT
+
+db:
+  driver:
+    name: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:5432/crypto_db
+  user: root
+  password: root
