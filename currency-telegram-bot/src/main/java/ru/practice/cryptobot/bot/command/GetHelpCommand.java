@@ -7,35 +7,37 @@ import org.telegram.telegrambots.extensions.bots.commandbot.commands.IBotCommand
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.bots.AbsSender;
-import ru.practice.cryptobot.service.CryptoCurrencyService;
-import ru.practice.cryptobot.utils.TextUtil;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import ru.practice.cryptobot.configuration.CommandListConfiguration;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
-public class GetPriceCommand implements IBotCommand {
+@Slf4j
+public class GetHelpCommand implements IBotCommand {
 
-    private final CryptoCurrencyService cryptoCurrencyService;
+    private final CommandListConfiguration commandList;
 
     @Override
     public String getCommandIdentifier() {
-        return "get_price";
+        return "help";
     }
 
     @Override
     public String getDescription() {
-        return "To get BTC price in USD";
+        return "To get a list of available commands";
     }
 
     @Override
     public void processMessage(AbsSender absSender, Message message, String[] arguments) {
         SendMessage answer = new SendMessage();
+
         answer.setChatId(message.getChatId());
+
         try {
-            answer.setText("Current BTC price: " + TextUtil.toString(cryptoCurrencyService.getBitcoinPrice()) + " USD");
+            answer.setText(commandList.getCommands());
             absSender.execute(answer);
-        } catch (Exception e) {
-            log.error("Error occurred in /get_price методе", e);
-        }
+        } catch (TelegramApiException e) {
+            throw new RuntimeException(e);
+       }
     }
 }

@@ -20,8 +20,7 @@ public class CryptoBot extends TelegramLongPollingCommandBot {
     public CryptoBot(
             @Value("${telegram.bot.token}") String botToken,
             @Value("${telegram.bot.username}") String botUsername,
-            List<IBotCommand> commandList
-    ) {
+            List<IBotCommand> commandList) {
         super(botToken);
         this.botUsername = botUsername;
 

@@ -6,25 +6,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-import java.util.UUID;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "subscribes")
-public class Subscribe {
+@Table(name = "subscribes", indexes = @Index(name = "user_id_index", columnList = "userId", unique = true))
+public class Subscription {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private UUID userUUID;
-
     private Long userId;
 
-    private BigDecimal price;
+    private String userName;
+
+    private Double price;
 
 }

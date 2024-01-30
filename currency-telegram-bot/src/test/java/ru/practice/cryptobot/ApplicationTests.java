@@ -1,11 +1,10 @@
 package ru.practice.cryptobot;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.regex.Pattern;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-class CryptoBotApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {
