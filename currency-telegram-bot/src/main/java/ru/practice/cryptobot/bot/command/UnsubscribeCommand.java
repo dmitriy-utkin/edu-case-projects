@@ -24,14 +24,14 @@ public class UnsubscribeCommand implements IBotCommand {
 
     @Override
     public String getDescription() {
-        return "To cancel current subscription";
+        return "To cancel all current subscriptions";
     }
 
     @Override
     public void processMessage(AbsSender absSender, Message message, String[] arguments) {
         SendMessage answer = new SendMessage();
 
-        var result = cryptoCurrencyService.unsubscribe(message.getFrom());
+        var result = cryptoCurrencyService.unsubscribe(message.getFrom(), message.getText());
 
         answer.setChatId(message.getChatId());
 

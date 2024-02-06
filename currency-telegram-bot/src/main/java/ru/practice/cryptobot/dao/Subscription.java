@@ -5,13 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.practice.cryptobot.dto.NotificationType;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "subscribes", indexes = @Index(name = "user_id_index", columnList = "userId", unique = true))
+@Table(name = "subscribes", indexes = @Index(name = "user_id_type_index", columnList = "userId, notificationType", unique = true))
 public class Subscription {
 
     @Id
@@ -23,5 +24,10 @@ public class Subscription {
     private String userName;
 
     private Double price;
+
+    private Long chatId;
+
+    @Enumerated(EnumType.STRING)
+    private NotificationType notificationType;
 
 }

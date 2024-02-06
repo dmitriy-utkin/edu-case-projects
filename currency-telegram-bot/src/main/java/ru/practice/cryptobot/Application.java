@@ -12,4 +12,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
+    //TODO: добавить функционал: продажа или покупка BTC?
+    //TODO: cоздаются дубликаты на подписку с null, поправить
+
 }

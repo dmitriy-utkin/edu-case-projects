@@ -16,6 +16,9 @@ binance:
   api:
     getPrice: https://api.binance.com/api/v3/avgPrice?symbol=BTCUSDT
 
+app:
+  notification:
+    ttl: 10 # in minutes
 
 spring:
   profiles:

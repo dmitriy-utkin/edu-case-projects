@@ -39,7 +39,7 @@ public class StartCommand implements IBotCommand {
         SendMessage answer = new SendMessage();
         answer.setChatId(message.getChatId());
 
-        cryptoCurrencyService.saveNewUser(message.getFrom());
+        cryptoCurrencyService.saveNewUser(message.getChatId(), message.getFrom());
 
         try {
             answer.setText(MessageFormat.format(

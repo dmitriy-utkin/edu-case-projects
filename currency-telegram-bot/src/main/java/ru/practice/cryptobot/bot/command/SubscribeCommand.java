@@ -8,16 +8,14 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import ru.practice.cryptobot.dto.NotificationType;
 import ru.practice.cryptobot.service.CryptoCurrencyService;
 import ru.practice.cryptobot.utils.TextUtil;
-
-import java.io.IOException;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class SubscribeCommand implements IBotCommand {
-
 
     private final CryptoCurrencyService cryptoCurrencyService;
 
@@ -28,14 +26,14 @@ public class SubscribeCommand implements IBotCommand {
 
     @Override
     public String getDescription() {
-        return "To subscribe for the exact BTC price in USD";
+        return "To subscribe for the exact BTC price in USD for buy";
     }
 
     @Override
     public void processMessage(AbsSender absSender, Message message, String[] arguments) {
         SendMessage answer = new SendMessage();
 
-        String result = cryptoCurrencyService.subscribe(message.getFrom(), message.getText());
+        String result = cryptoCurrencyService.subscribe(message.getChatId(), message.getFrom(), message.getText());
 
         answer.setChatId(message.getChatId());
 
@@ -44,7 +42,7 @@ public class SubscribeCommand implements IBotCommand {
             absSender.execute(answer);
             answer.setText(result);
             absSender.execute(answer);
-        } catch (IOException | TelegramApiException e) {
+        } catch (TelegramApiException e) {
             throw new RuntimeException(e);
         };
     }
