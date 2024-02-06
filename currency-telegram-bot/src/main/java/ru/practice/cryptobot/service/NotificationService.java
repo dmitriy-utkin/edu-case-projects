@@ -33,7 +33,7 @@ public class NotificationService {
                 .toList();
     }
 
-    public SendMessage getNotificationMessage(Notification notification) {
+    private SendMessage getNotificationMessage(Notification notification) {
 
         String messageTemplate = "Time to " + notification.getNotificationType().toString() +
                 "! BTC price is " + TextUtil.toString(cryptoCurrencyService.getBitcoinPrice()) + " USD";
@@ -46,7 +46,7 @@ public class NotificationService {
     }
 
 
-    public List<Notification> getNotificationList() {
+    private List<Notification> getNotificationList() {
 
         var currentBtcPrice = cryptoCurrencyService.getBitcoinPrice();
 
