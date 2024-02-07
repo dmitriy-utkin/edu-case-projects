@@ -56,7 +56,7 @@ public class CryptoCurrencyService {
 
         text = preparePriceString(text);
 
-        if (!text.matches("[0-9]+") || type == null) {
+        if (!text.matches("[0-9]+.?[0-9]+") || type == null) {
             return "You have send an incorrect price or notification type: " + text;
         }
         var subscriptionPrice = Double.parseDouble(text);
@@ -137,7 +137,7 @@ public class CryptoCurrencyService {
     }
 
     private String preparePriceString(String price) {
-        return price.trim().replaceAll("[^0-9]+", "");
+        return price.trim().replace(",", ".").replaceAll("[^0-9.]+", "");
     }
 
     private List<Subscription> findByUserId(Long userId) {

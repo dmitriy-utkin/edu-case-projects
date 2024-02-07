@@ -13,8 +13,11 @@ import java.time.Instant;
 @RequiredArgsConstructor
 public class NotificationRepository {
 
-    @Value("${app.notification.ttl}")
-    private Long ttl;
+    @Value("${telegram.bot.notify.delay.value}")
+    private Long ttlValue;
+
+    @Value("${telegram.bot.notify.delay.unit}")
+    private String ttlUnit;
 
     private final RedisTemplate<String, Instant> redisTemplate;
 
@@ -23,7 +26,19 @@ public class NotificationRepository {
     }
 
     public void updateNotificationList(String username, NotificationType type) {
-        Duration durationTtl = Duration.ofMinutes(ttl);
-        redisTemplate.opsForValue().set(username + type, Instant.now(), durationTtl);
+        redisTemplate.opsForValue().set(username + type, Instant.now(), getDuration());
+    }
+
+    private Duration getDuration() {
+        if (ttlUnit.toUpperCase().contains("MIN")) {
+            return Duration.ofMinutes(ttlValue);
+        }
+        if (ttlUnit.toUpperCase().contains("SEC")) {
+            return Duration.ofSeconds(ttlValue);
+        }
+        if (ttlUnit.toUpperCase().contains("HOUR")) {
+            return Duration.ofHours(ttlValue);
+        }
+        throw new IllegalArgumentException("Illegal duration type");
     }
 }

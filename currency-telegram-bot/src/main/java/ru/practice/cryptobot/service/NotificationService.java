@@ -28,7 +28,8 @@ public class NotificationService {
     private final NotificationMapper notificationMapper;
 
     public List<SendMessage> getNotificationMessageList(){
-        return getNotificationList().stream()
+        var notificationList = getNotificationList();
+        return notificationList.stream()
                 .map(this::getNotificationMessage)
                 .toList();
     }
@@ -52,9 +53,9 @@ public class NotificationService {
 
         List<Notification> notifications = new ArrayList<>();
 
-        var lessPriceSubscription = subscribeRepository.findByNotificationTypeAndPriceLessThan(NotificationType.BUY, currentBtcPrice);
+        var lessPriceSubscription = subscribeRepository.findByNotificationTypeAndPriceLessThan(NotificationType.SELL, currentBtcPrice);
 
-        var greaterPriceSubscription = subscribeRepository.findByNotificationTypeAndPriceGreaterThan(NotificationType.SELL, currentBtcPrice);
+        var greaterPriceSubscription = subscribeRepository.findByNotificationTypeAndPriceGreaterThan(NotificationType.BUY, currentBtcPrice);
 
         notifications.addAll(getPreparedNotification(lessPriceSubscription));
         notifications.addAll(getPreparedNotification(greaterPriceSubscription));

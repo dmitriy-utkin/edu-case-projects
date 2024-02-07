@@ -1,34 +1,30 @@
 telegram:
   bot:
-#    не вписывайте данные, так как можете отправить в публичный репозиторий
-#    используйте переменные среды для установки значений
-#    username: ${BOT_NAME}
-#    token: ${BOT_TOKEN}
-
-    username: "@CryptocurrencyAnalyzer_bot"
-    token: "6934013338:AAGE5SgRQ7-n4_tTFq36sSkss3XQsLdZie4"
+    username: ${BOT_NAME}
+    token: ${BOT_TOKEN}
     notify:
       delay:
-        value: 10
-        unit: MINUTES
+        value: ${NOTIFICATION_DELAY:10}
+        unit: ${NOTIFICATION_DELAY_UNIT:MINUTES} # (MINUTES / HOURS / SECONDS)
 
 binance:
   api:
-    getPrice: https://api.binance.com/api/v3/avgPrice?symbol=BTCUSDT
-
-app:
-  notification:
-    ttl: 10 # in minutes
+    getPrice: ${BINANCE_API_URL:https://api.binance.com/api/v3/avgPrice?symbol=BTCUSDT}
 
 spring:
   profiles:
     active: dev
+  data:
+    redis:
+      host: ${REDIS_HOST:redis}
+      port: 6379
+
   jpa:
     generate-ddl: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/currency_db
-    username: postgres
-    password: postgres
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/currency_db}
+    username: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
     hikari:
       schema: currency_schema
       connection-timeout: 10000

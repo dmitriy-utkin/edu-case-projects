@@ -12,3 +12,22 @@ services:
     image: redis:7.0.12
     ports:
       - "6379:6379"
+
+  bot:
+    image: crypto-bot:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+      - postgres
+
+    environment:
+      BOT_NAME: "@CryptocurrencyAnalyzer_bot"
+      BOT_TOKEN: "6934013338:AAGE5SgRQ7-n4_tTFq36sSkss3XQsLdZie4"
+      NOTIFICATION_DELAY: 10
+      NOTIFICATION_DELAY_UNIT: MINUTES
+      BINANCE_API_URL: https://api.binance.com/api/v3/avgPrice?symbol=BTCUSDT
+      POSTGRES_URL: jdbc:postgresql://postgres:5432/currency_db
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: postgres
+      REDIS_HOST: redis
