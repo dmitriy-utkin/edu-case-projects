@@ -15,8 +15,6 @@ public interface SubscribeRepository extends JpaRepository<Subscription, Long> {
 
     Optional<Subscription> findByUserIdAndNotificationType(Long userId, NotificationType notificationType);
 
-    boolean existsByUserName(String userName);
-
     boolean existsByUserId(Long userId);
 
     List<Subscription> findByNotificationTypeAndPriceGreaterThan(NotificationType notificationType, double price);

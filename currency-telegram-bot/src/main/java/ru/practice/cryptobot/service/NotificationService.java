@@ -35,7 +35,6 @@ public class NotificationService {
     }
 
     private SendMessage getNotificationMessage(Notification notification) {
-
         String messageTemplate = "Time to " + notification.getNotificationType().toString() +
                 "! BTC price is " + TextUtil.toString(cryptoCurrencyService.getBitcoinPrice()) + " USD";
 
@@ -48,13 +47,10 @@ public class NotificationService {
 
 
     private List<Notification> getNotificationList() {
-
-        var currentBtcPrice = cryptoCurrencyService.getBitcoinPrice();
-
         List<Notification> notifications = new ArrayList<>();
 
+        var currentBtcPrice = cryptoCurrencyService.getBitcoinPrice();
         var lessPriceSubscription = subscribeRepository.findByNotificationTypeAndPriceLessThan(NotificationType.SELL, currentBtcPrice);
-
         var greaterPriceSubscription = subscribeRepository.findByNotificationTypeAndPriceGreaterThan(NotificationType.BUY, currentBtcPrice);
 
         notifications.addAll(getPreparedNotification(lessPriceSubscription));
@@ -64,7 +60,6 @@ public class NotificationService {
     }
 
     private List<Notification> getPreparedNotification(List<Subscription> subscriptions) {
-
         return subscriptions.stream()
                 .filter(subscription -> !notificationRepository.userIsNotified(subscription.getUserName(), subscription.getNotificationType()))
                 .map(subscription -> {
