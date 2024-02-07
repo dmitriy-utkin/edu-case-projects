@@ -22,8 +22,8 @@ services:
       - postgres
 
     environment:
-      BOT_NAME: "@CryptocurrencyAnalyzer_bot"
-      BOT_TOKEN: "6934013338:AAGE5SgRQ7-n4_tTFq36sSkss3XQsLdZie4"
+      BOT_NAME: default
+      BOT_TOKEN: default
       NOTIFICATION_DELAY: 10
       NOTIFICATION_DELAY_UNIT: MINUTES
       BINANCE_API_URL: https://api.binance.com/api/v3/avgPrice?symbol=BTCUSDT
