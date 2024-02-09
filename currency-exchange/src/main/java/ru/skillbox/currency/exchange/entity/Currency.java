@@ -1,9 +1,6 @@
 package ru.skillbox.currency.exchange.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,8 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@ToString
 public class Currency {
 
     @Id
@@ -21,6 +20,7 @@ public class Currency {
     private Long id;
 
     @Column(name = "name")
+    @ToString.Exclude
     private String name;
 
     @Column(name = "nominal")

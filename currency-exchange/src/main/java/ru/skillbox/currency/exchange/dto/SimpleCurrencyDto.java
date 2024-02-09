@@ -5,15 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class CurrencyDtoList {
+public class SimpleCurrencyDto {
 
-    @Builder.Default
-    private List<SimpleCurrencyDto> currencies = new ArrayList<>();
+    private String name;
+
+    private Double value;
 }
