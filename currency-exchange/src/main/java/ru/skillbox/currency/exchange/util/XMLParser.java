@@ -15,7 +15,7 @@ import java.util.List;
 public class XMLParser {
 
     @SneakyThrows
-    public static List<Currency> getXmlCurrencyListDto(String xml, CurrencyMapper currencyMapper) {
+    public static List<Currency> getCurrencyList(String xml, CurrencyMapper currencyMapper) {
         JAXBContext jaxbContext = JAXBContext.newInstance(XmlCurrencyListDto.class);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
         XmlCurrencyListDto xmlCurrencyListDto = (XmlCurrencyListDto) unmarshaller.unmarshal(new StringReader(xml));

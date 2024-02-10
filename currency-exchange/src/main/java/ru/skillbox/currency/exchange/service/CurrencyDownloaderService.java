@@ -26,7 +26,7 @@ public class CurrencyDownloaderService {
     public List<Currency> getActualCurrencyList() {
         log.info("CurrencyDownloaderService method updateCurrencyList executed");
         String actualCurrencies = getActualCurrencies();
-        return XMLParser.getXmlCurrencyListDto(actualCurrencies, currencyMapper);
+        return XMLParser.getCurrencyList(actualCurrencies, currencyMapper);
     }
 
     private String getActualCurrencies() {
