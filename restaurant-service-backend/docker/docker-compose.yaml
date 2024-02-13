@@ -1,11 +1,11 @@
 version: '3'
 
 services:
-  postgres:
-    image: postgres:12.3-alpine
+  mongodb:
+    image: mongo:6.0.8
     ports:
-      - "5432:5432"
+      - "27017:27017"
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=restaurant_system
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: restaurant_system

@@ -1,10 +1,13 @@
 package ru.education.restaurant.dao;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
@@ -12,24 +15,20 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
-@jakarta.persistence.Table(name = "reservations")
+@Document(collection = "products")
+@FieldNameConstants
 public class Reservation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private LocalDateTime from;
 
     private LocalDateTime to;
 
-    @ManyToOne
-    @JoinColumn(name = "reservation_id")
+    @DBRef
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "reservation_id")
+    @DBRef
     private Table table;
-
 }

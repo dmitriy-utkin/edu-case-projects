@@ -1,11 +1,13 @@
 package ru.education.restaurant.dao;
 
-import jakarta.persistence.*;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 
@@ -13,16 +15,14 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
-@Table(name = "products")
+@Document(collection = "products")
+@FieldNameConstants
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
+    @DBRef
     private Restaurant restaurant;
 
     private String name;
@@ -31,16 +31,12 @@ public class Product {
 
     private BigDecimal price;
 
-    @Column(name = "preparation_time")
     private Integer preparationTime;
 
     private Double weight;
 
-    @Column(name = "energy_value")
     private Double energyValue;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
+    @DBRef
     private Category category;
-
 }

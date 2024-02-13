@@ -1,54 +1,44 @@
 package ru.education.restaurant.dao;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
-@jakarta.persistence.Table(name = "restaurants")
+@Document(collection = "restaurants")
+@FieldNameConstants
 public class Restaurant {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private String name;
 
-    private String address;
-
     private String headline;
+
+    private String address;
 
     private String city;
 
-    @ElementCollection(targetClass = OrderType.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "restaurant_order_types", joinColumns = @JoinColumn(name = "restaurant_id"))
-    @Column(name = "available_order_types")
-    @Enumerated(EnumType.STRING)
-    private Set<OrderType> orderTypes;
-
-    @OneToMany(mappedBy = "restaurant")
-    @JsonIgnore
     @Builder.Default
-    private List<Product> products = new ArrayList<>();
+    private Set<OrderType> orderTypes = Set.of(OrderType.DELIVERY, OrderType.ON_PLACE);
 
-    @OneToMany(mappedBy = "restaurant")
-    @JsonIgnore
     @Builder.Default
-    private List<Table> tables = new ArrayList<>();
+    @DBRef
+    private Set<Table> tables = new HashSet<>();
 
-    @OneToMany(mappedBy = "restaurant")
-    @JsonIgnore
     @Builder.Default
-    private List<Delivery> deliveries = new ArrayList<>();
+    @DBRef
+    private Set<Product> products = new HashSet<>();
 }

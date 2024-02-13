@@ -1,12 +1,14 @@
 package ru.education.restaurant.dao;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -17,46 +19,35 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "users")
-@Entity
+@Document(collection = "users")
+@FieldNameConstants
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private String email;
 
     private String password;
 
-    @Column(name = "privilege_level")
-    private PrivilegeLevel privilegeLevel;
-
-    @Column(name = "bonus_balance")
-    @Enumerated(EnumType.STRING)
-    private BigDecimal bonusBalance;
-
-    @Column(name = "total_spent_money")
-    private BigDecimal totalSpentMoney;
-
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "roles", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
-
-    @OneToMany(mappedBy = "user")
     @Builder.Default
-    @JsonIgnore
-    private List<Reservation> reservations = new ArrayList<>();
+    private PrivilegeLevel privilegeLevel = PrivilegeLevel.FIRST;
 
-    @OneToMany(mappedBy = "user")
     @Builder.Default
-    @JsonIgnore
+    private BigDecimal bonusBalance = BigDecimal.ZERO;
+
+    @Builder.Default
+    private BigDecimal totalSpentMoney = BigDecimal.ZERO;
+
+    @DBRef
+    @Field("orders")
+    @Builder.Default
+    private List<Order> orders = new ArrayList<>();
+
+    @DBRef
+    @Builder.Default
     private List<Delivery> deliveries = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
     @Builder.Default
-    @JsonIgnore
-    private List<Order> orders = new ArrayList<>();
+    private Set<Role> roles = Set.of(Role.USER);
 }

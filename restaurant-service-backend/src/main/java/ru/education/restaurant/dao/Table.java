@@ -1,8 +1,13 @@
 package ru.education.restaurant.dao;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,36 +19,21 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
-@jakarta.persistence.Table(name = "tables")
+@Document(collection = "tables")
+@FieldNameConstants
 public class Table {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "table_id")
+    @DBRef
     private Restaurant restaurant;
 
     private Integer number;
 
-    @Column(name = "reserved_times")
-    @Builder.Default
-    @ToString.Exclude
     private Set<LocalDateTime> reservedTimes = new HashSet<>();
 
-    @OneToMany(mappedBy = "table")
     @Builder.Default
-    @JsonIgnore
-    @ToString.Exclude
+    @DBRef
     private List<Reservation> reservations = new ArrayList<>();
-
-    @OneToMany(mappedBy = "table")
-    @Builder.Default
-    @JsonIgnore
-    @ToString.Exclude
-    private List<Order> orders = new ArrayList<>();
-
-
 }

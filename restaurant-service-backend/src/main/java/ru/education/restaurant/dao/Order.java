@@ -1,11 +1,14 @@
 package ru.education.restaurant.dao;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,33 +18,26 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
-@jakarta.persistence.Table(name = "orders")
+@Document(collection = "orders")
+@FieldNameConstants
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
+    @DBRef
     private Table table;
 
-    @Enumerated(EnumType.STRING)
-    private OrderType orderType;
+    @Builder.Default
+    private OrderType orderType = OrderType.ON_PLACE;
 
-    @Column(name = "full_price")
     private BigDecimal fullPrice;
 
-    @ManyToMany
-    @JoinTable(name = "order_products", joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    @JsonIgnore
+    @DBRef
     @Builder.Default
     private List<Product> products = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
+    @DBRef
+    @Field("users")
     private User user;
-
 }
