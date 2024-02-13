@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import ru.education.restaurant.dao.enums.OrderType;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -38,6 +39,5 @@ public class Order {
     private List<Product> products = new ArrayList<>();
 
     @DBRef
-    @Field("users")
     private User user;
 }

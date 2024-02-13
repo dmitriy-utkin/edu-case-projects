@@ -8,6 +8,7 @@ import lombok.experimental.FieldNameConstants;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import ru.education.restaurant.dao.enums.OrderType;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

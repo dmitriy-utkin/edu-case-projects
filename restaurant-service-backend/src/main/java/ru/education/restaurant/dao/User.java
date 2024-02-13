@@ -9,6 +9,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import ru.education.restaurant.dao.enums.PrivilegeLevel;
+import ru.education.restaurant.dao.enums.Role;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -40,7 +42,6 @@ public class User {
     private BigDecimal totalSpentMoney = BigDecimal.ZERO;
 
     @DBRef
-    @Field("orders")
     @Builder.Default
     private List<Order> orders = new ArrayList<>();
 
@@ -49,5 +50,5 @@ public class User {
     private List<Delivery> deliveries = new ArrayList<>();
 
     @Builder.Default
-    private Set<Role> roles = Set.of(Role.USER);
+    private Role role = Role.USER;
 }

@@ -3,20 +3,15 @@ package ru.education.restaurant.listener;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import ru.education.restaurant.dao.Order;
-import ru.education.restaurant.dao.OrderType;
-import ru.education.restaurant.dao.Product;
 import ru.education.restaurant.dao.User;
 import ru.education.restaurant.reposirory.OrderRepository;
 import ru.education.restaurant.reposirory.UserRepository;
 
 import java.math.BigDecimal;
 import java.util.Collections;
-import java.util.List;
 import java.util.UUID;
 
 @Component
