@@ -1,6 +1,0 @@
-server: 8080
-
-spring:
-  data:
-    mongodb:
-      uri: mongodb://root:root@localhost:27017/restaurant_system?authSource=admin
